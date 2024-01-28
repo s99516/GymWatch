@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWatch.API", "GymWatch.API\GymWatch.API.csproj", "{1A94B090-1030-410E-A9A4-F5DB74784CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWatch.Core", "GymWatch.Core\GymWatch.Core.csproj", "{C7F55D7D-319B-4AA7-AF3A-5D7A6313BD25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWatch.Infrastructure", "GymWatch.Infrastructure\GymWatch.Infrastructure.csproj", "{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A94B090-1030-410E-A9A4-F5DB74784CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A94B090-1030-410E-A9A4-F5DB74784CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A94B090-1030-410E-A9A4-F5DB74784CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A94B090-1030-410E-A9A4-F5DB74784CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7F55D7D-319B-4AA7-AF3A-5D7A6313BD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7F55D7D-319B-4AA7-AF3A-5D7A6313BD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7F55D7D-319B-4AA7-AF3A-5D7A6313BD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7F55D7D-319B-4AA7-AF3A-5D7A6313BD25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
