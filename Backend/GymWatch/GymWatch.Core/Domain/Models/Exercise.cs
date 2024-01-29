@@ -12,7 +12,7 @@ public class Exercise : IModel<int>
     public int? UserId { get; set; }
     public User? User { get; set; }
 
-    public Exercise() { }
+    protected Exercise() { }
 
     public Exercise(string name, string? description, bool isCustom)
     {
