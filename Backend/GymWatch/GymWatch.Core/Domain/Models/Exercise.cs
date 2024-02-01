@@ -1,4 +1,5 @@
-﻿using GymWatch.Core.Domain.Abstraction;
+﻿using System.Data;
+using GymWatch.Core.Domain.Abstraction;
 
 namespace GymWatch.Core.Domain.Models;
 
@@ -29,6 +30,12 @@ public class Exercise : IModel<int>
         IsCustom = isCustom;
         DateCreated = DateTime.UtcNow;
         User = user;
+    }
+
+    public void Update(string name, string? description)
+    {
+        SetName(name);
+        Description = description;
     }
 
     private void SetName(string name)
