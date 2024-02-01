@@ -1,11 +1,13 @@
-﻿using GymWatch.Core.Domain.Models;
+﻿using System.Data;
+using GymWatch.Core.Domain.Models;
 using GymWatch.Infrastructure.IRepositories;
+using GymWatch.Infrastructure.Requests;
 
 namespace GymWatch.Infrastructure.Repositories.InMemoryRepositories;
 
 public class InMemoryExerciseRepository : IExerciseRepository
 {
-    public List<Exercise> Exercises = new()
+    private List<Exercise> Exercises = new()
     {
         new Exercise("Deadlift", "Description deadlift", false)
         {
@@ -25,7 +27,12 @@ public class InMemoryExerciseRepository : IExerciseRepository
             UserId = 1
         },
     };
-    
+
+    public async Task<Exercise?> GetByIdAsync(int id)
+    {
+        return await Task.FromResult(Exercises.Where(x => x.Id == id).FirstOrDefault());
+    }
+
     public async Task<IEnumerable<Exercise>> GetDefaultExercisesAsync()
     {
         return  await Task.FromResult(Exercises.Where(x => !x.IsCustom).ToList());
@@ -34,5 +41,29 @@ public class InMemoryExerciseRepository : IExerciseRepository
     public async Task<IEnumerable<Exercise>> GetUserCustomExercisesAsync(int userId)
     {
         return await Task.FromResult(Exercises.Where(x => x.IsCustom && x.UserId == userId).ToList());
+    }
+
+    public async Task<int> AddAsync(Exercise exercise)
+    {
+        var lastId = Exercises.LastOrDefault()?.Id;
+        exercise.Id = (lastId ?? 0) + 1;
+        Exercises.Add(exercise);
+        
+        return await Task.FromResult(exercise.Id);
+    }
+
+    public async Task<int> EditAsync(EditCustomExerciseRequest request)
+    {
+        var entity = await GetByIdAsync(request.Id);
+
+        if (entity == null) throw new Exception($"Cannot find exercise with id {request.Id} to process update");
+
+        entity.Update(request.Name, request.Description);
+        return entity.Id;
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        Exercises = Exercises.Where(x => x.Id != id && x.IsCustom).ToList();
     }
 }
