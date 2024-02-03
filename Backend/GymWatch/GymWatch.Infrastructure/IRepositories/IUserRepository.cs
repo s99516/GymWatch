@@ -4,5 +4,5 @@ namespace GymWatch.Infrastructure.IRepositories;
 
 public interface IUserRepository
 {
-    Task<User> GetByIdAsync(int id);
+    Task<User?> GetByIdAsync(int id);
 }

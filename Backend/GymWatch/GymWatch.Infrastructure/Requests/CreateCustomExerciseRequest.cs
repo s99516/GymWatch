@@ -1,6 +1,6 @@
 ﻿namespace GymWatch.Infrastructure.Requests;
 
-public class CreateCustomExercise
+public record CreateCustomExerciseRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }

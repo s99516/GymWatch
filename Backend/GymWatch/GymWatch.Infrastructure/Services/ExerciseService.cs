@@ -17,7 +17,7 @@ public class ExerciseService : IExerciseService
         _exerciseRepository = exerciseRepository;
     }
     
-    public async Task<int> AddCustomExercise(CreateCustomExercise request)
+    public async Task<int> AddCustomExercise(CreateCustomExerciseRequest request)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId);
 

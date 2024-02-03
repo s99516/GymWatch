@@ -33,7 +33,7 @@ public class ExercisesController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<int> AddCustomExerciseAsync([FromBody] CreateCustomExercise request)
+    public async Task<int> AddCustomExerciseAsync([FromBody] CreateCustomExerciseRequest request)
     {
         var response = await _exerciseService.AddCustomExercise(request);
         return response;

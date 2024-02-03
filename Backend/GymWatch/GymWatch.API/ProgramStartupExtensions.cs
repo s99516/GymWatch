@@ -11,11 +11,13 @@ public static class ProgramStartupExtensions
     {
         services.AddScoped<IExerciseProvider, ExerciseProvider>();
         services.AddScoped<IExerciseService, ExerciseService>();
+        services.AddScoped<ITrainingInstanceService, TrainingInstanceService>();
     }
     
     public static void RegisterRepositories(this IServiceCollection services)
     {
         services.AddScoped<IExerciseRepository, InMemoryExerciseRepository>();
         services.AddScoped<IUserRepository, InMemoryUserRepository>();
+        services.AddScoped<ITrainingInstanceRepository, InMemoryTrainingInstanceRepository>();
     }
 }

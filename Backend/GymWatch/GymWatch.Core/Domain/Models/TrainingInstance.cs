@@ -8,7 +8,7 @@ public class TrainingInstance : IModel<int>
     public int Id { get; set; }
     public string Name { get; set; }
     public DateTime Date { get; set; }
-    public double BodyWeight { get; set; }
+    public double? BodyWeight { get; set; }
     public TrainingState State { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
@@ -16,7 +16,7 @@ public class TrainingInstance : IModel<int>
 
     public TrainingInstance() { }
 
-    public TrainingInstance(string name, double bodyWeight, TrainingState state, User user)
+    public TrainingInstance(string name, double? bodyWeight, TrainingState state, User user)
     {
         SetName(name);
         SetBodyWeight(bodyWeight);
@@ -41,7 +41,7 @@ public class TrainingInstance : IModel<int>
         Name = name;
     }
     
-    private void SetBodyWeight(double bodyWeight)
+    private void SetBodyWeight(double? bodyWeight)
     {
         if (bodyWeight <= 0) throw new ArgumentException("Wrong body weight provided");
         BodyWeight = bodyWeight;
