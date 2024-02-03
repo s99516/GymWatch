@@ -19,7 +19,6 @@ public class ExerciseProvider : IExerciseProvider
         var exercises = await _exerciseRepository.GetDefaultExercisesAsync();
         
         var result = exercises.ToDtoList();
-        
         return result;
     }
 
@@ -28,7 +27,6 @@ public class ExerciseProvider : IExerciseProvider
         var exercises = await _exerciseRepository.GetUserCustomExercisesAsync(userId);
         
         var result = exercises.ToDtoList();
-        
         return result;
     }
 
