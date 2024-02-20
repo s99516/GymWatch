@@ -8,6 +8,7 @@ public class User : IModel<int>
     public int Id { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public string PasswordSalt { get; set; }
     public DateTime DateCreated { get; set; }
 
     public ICollection<TrainingInstance> TrainingInstances { get; set; }
