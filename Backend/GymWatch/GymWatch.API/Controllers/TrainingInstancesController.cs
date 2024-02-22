@@ -24,7 +24,7 @@ public class TrainingInstancesController : ApiControllerBase
     }
 
     [HttpGet("by-user/{userId}")]
-    public async Task<IActionResult> GetBuUserAsync(int userId)
+    public async Task<IActionResult> GetByUserAsync(int userId)
     {
         var result = await _trainingInstanceService.GetByUserAsync(userId);
         return Json(result);
