@@ -14,7 +14,7 @@ public class TrainingInstance : IModel<int>
     public User User { get; set; }
     public ICollection<TrainingInstanceExercise> TrainingInstanceExercises { get; set; }
 
-    public TrainingInstance() { }
+    protected TrainingInstance() { }
 
     public TrainingInstance(string name, double? bodyWeight, TrainingState state, User user)
     {

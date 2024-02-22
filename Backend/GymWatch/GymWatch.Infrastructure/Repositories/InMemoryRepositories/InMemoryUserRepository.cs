@@ -27,4 +27,9 @@ public class InMemoryUserRepository : IUserRepository
     {
         return await Task.FromResult(Users.Where(x => x.Id == id).FirstOrDefault());
     }
+
+    public Task<int> AddAsync(User entity)
+    {
+        throw new NotImplementedException();
+    }
 }

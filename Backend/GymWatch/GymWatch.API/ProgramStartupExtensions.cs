@@ -1,7 +1,7 @@
 ﻿using GymWatch.Infrastructure.EF;
 using GymWatch.Infrastructure.IRepositories;
 using GymWatch.Infrastructure.IServices;
-using GymWatch.Infrastructure.Repositories.InMemoryRepositories;
+using GymWatch.Infrastructure.Repositories.SQLRepositories;
 using GymWatch.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,14 +13,15 @@ public static class ProgramStartupExtensions
     {
         services.AddScoped<IExerciseProvider, ExerciseProvider>();
         services.AddScoped<IExerciseService, ExerciseService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITrainingInstanceService, TrainingInstanceService>();
     }
     
     public static void RegisterRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IExerciseRepository, InMemoryExerciseRepository>();
-        services.AddScoped<IUserRepository, InMemoryUserRepository>();
-        services.AddScoped<ITrainingInstanceRepository, InMemoryTrainingInstanceRepository>();
+        services.AddScoped<IExerciseRepository, ExerciseRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITrainingInstanceRepository, TrainingInstanceRepository>();
     }
 
     public static void MigrateDatabase(this IServiceCollection services)
