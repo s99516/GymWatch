@@ -7,9 +7,11 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { ComponentProps, useEffect, useMemo } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { CustomThemeProvider } from "./providers/ThemeProvider/CustomThemeProvider";
+import { Appbar, Text } from "react-native-paper";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -45,24 +47,70 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <CustomThemeProvider>
+      <RootLayoutNav />
+    </CustomThemeProvider>
+  );
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
+  const screenOptions: ComponentProps<typeof Stack>["screenOptions"] =
+    useMemo(() => {
+      return {
+        header: (props) => {
+          return (
+            <>
+              <Appbar.Header
+                mode="center-aligned"
+                elevated
+              >
+                {props.back && (
+                  <Appbar.BackAction
+                    onPress={() => {
+                      props.navigation.canGoBack() && props.navigation.goBack();
+                    }}
+                  />
+                )}
+                <Appbar.Content
+                  title={
+                    <Text>
+                      {props.options.headerTitle
+                        ? typeof props.options.headerTitle === "function"
+                          ? props.options.headerTitle({
+                              children: props.options.title ?? "",
+                            })
+                          : props.options.headerTitle
+                        : props.options.title}
+                    </Text>
+                  }
+                />
+              </Appbar.Header>
+            </>
+          );
+        },
+      };
+    }, []);
+
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen
-          name="(auth)/(tabs)"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="settings"
-          options={{ presentation: "modal" }}
-        />
-      </Stack>
-    </ThemeProvider>
+    <Stack screenOptions={screenOptions}>
+      <Stack.Screen
+        name="index"
+        options={{
+          animation: "none",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="(auth)/(tabs)"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="settings"
+        options={{ presentation: "modal", headerTitle: "Settings" }}
+      />
+    </Stack>
   );
 }
