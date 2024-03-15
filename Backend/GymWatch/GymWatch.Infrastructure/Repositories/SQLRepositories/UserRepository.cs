@@ -26,4 +26,11 @@ public class UserRepository : IUserRepository
 
         return entity.Id;
     }
+
+    public async Task<User?> GetByEmailAsync(string email)
+    {
+        var result = await _context.Users.FirstOrDefaultAsync(x => x.Email.Equals(email));
+
+        return result;
+    }
 }

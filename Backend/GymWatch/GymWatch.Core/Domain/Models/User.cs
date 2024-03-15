@@ -16,10 +16,11 @@ public class User : IModel<int>
 
     public User() { }
 
-    public User(string email, string password)
+    public User(string email, string password, string passwordSalt)
     {
         SetEmail(email);
         SetPassword(password);
+        PasswordSalt = passwordSalt;
         DateCreated = DateTime.UtcNow;
     }
 
