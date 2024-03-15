@@ -3,4 +3,7 @@ using GymWatch.Infrastructure.IRepositories.Abstraction;
 
 namespace GymWatch.Infrastructure.IRepositories;
 
-public interface IUserRepository : IRepository<User> { }
+public interface IUserRepository : IRepository<User>
+{
+    Task<User?> GetByEmailAsync(string email);
+}

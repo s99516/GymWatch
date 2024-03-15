@@ -3,10 +3,12 @@ using GymWatch.Core.Domain.Models;
 using GymWatch.Infrastructure.DTOs;
 using GymWatch.Infrastructure.IServices;
 using GymWatch.Infrastructure.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymWatch.API.Controllers;
 
+[Authorize]
 public class ExercisesController : ApiControllerBase
 {
     private readonly IExerciseProvider _exerciseProvider;
