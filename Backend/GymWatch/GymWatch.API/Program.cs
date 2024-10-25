@@ -18,6 +18,18 @@ builder.Services.RegisterSettings(builder.Configuration);
 builder.Services.RegisterJwtServices(builder.Configuration);
 builder.Services.RegisterMemoryCache();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "CorsPolicy",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithExposedHeaders("x-refresh-token")
+                .SetIsOriginAllowed(_ => true);
+        });
+});
 
 builder.Services.AddControllers();
 
@@ -25,6 +37,9 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
+
+app.UseRouting();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 

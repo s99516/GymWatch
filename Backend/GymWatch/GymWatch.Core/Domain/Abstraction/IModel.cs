@@ -1,6 +1,6 @@
 ﻿namespace GymWatch.Core.Domain.Abstraction;
 
-public interface IModel<T>
+public interface IModel
 {
-    T Id { get; set; }
+    int Id { get; set; }
 }

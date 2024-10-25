@@ -34,7 +34,7 @@ public class UserService : IUserService
         return result;
     }
 
-    public async Task<int> RegisterAsync(string email, string password)
+    public async Task<UserDto> RegisterAsync(string email, string password)
     {
         var user = await _userRepository.GetByEmailAsync(email);
 
@@ -47,7 +47,7 @@ public class UserService : IUserService
 
         await _userRepository.AddAsync(user);
 
-        return user.Id;
+        return user.ToDto();
     }
 
     public async Task LoginAsync(string email, string password)
@@ -60,5 +60,16 @@ public class UserService : IUserService
         
         if (user.Password == hash) return;
         throw new Exception("Invalid credentials");
+    }
+
+    public async Task<int?> DeleteAsync(int id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        
+        user?.Delete();
+        
+        await _userRepository.SaveChangesAsync();
+
+        return user?.Id;
     }
 }

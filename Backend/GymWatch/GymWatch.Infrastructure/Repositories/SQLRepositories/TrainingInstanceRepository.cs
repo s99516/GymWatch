@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymWatch.Infrastructure.Repositories.SQLRepositories;
 
-public class TrainingInstanceRepository : ITrainingInstanceRepository
+public class TrainingInstanceRepository  : Repository<TrainingInstance>, ITrainingInstanceRepository
 {
     private GymWatchDbContext _context;
 
-    public TrainingInstanceRepository(GymWatchDbContext context)
+    public TrainingInstanceRepository(GymWatchDbContext context) : base(context)
     {
         _context = context;
     }
@@ -19,24 +19,16 @@ public class TrainingInstanceRepository : ITrainingInstanceRepository
         return result;
     }
 
+    public async Task<TrainingInstance> CreateAsync(TrainingInstance trainingInstance)
+    {
+        var entry = await _context.TrainingInstances.AddAsync(trainingInstance);
+        await _context.SaveChangesAsync();
+        
+        return entry.Entity;
+    }
+
     public async Task<IEnumerable<TrainingInstance>> GetByUserAsync(int userId)
     {
-        var result = await _context.TrainingInstances.Where(x => x.UserId.Equals(userId)).ToListAsync();
-        return result;
-    }
-
-    public async Task<int> AddAsync(TrainingInstance trainingInstance)
-    {
-        await _context.TrainingInstances.AddAsync(trainingInstance);
-        await _context.SaveChangesAsync();
-        return trainingInstance.Id;
-    }
-
-    public async Task FinishTrainingInstanceAsync(int id)
-    {
-        var trainingInstance = await GetByIdAsync(id);
-        trainingInstance?.EndTrainingInstance();
-        
-        await _context.SaveChangesAsync();
+        return await _context.TrainingInstances.Where(x => x.UserId.Equals(userId)).ToListAsync();
     }
 }

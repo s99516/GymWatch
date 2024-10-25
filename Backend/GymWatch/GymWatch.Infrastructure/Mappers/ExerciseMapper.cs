@@ -10,6 +10,7 @@ public static class ExerciseMapper
         Id = exercise.Id,
         Name = exercise.Name,
         Description = exercise.Description ?? "",
+        BodyPart = exercise.BodyPart,
         DateCreated = exercise.DateCreated,
         IsCustom = exercise.IsCustom,
         UserId = exercise.UserId

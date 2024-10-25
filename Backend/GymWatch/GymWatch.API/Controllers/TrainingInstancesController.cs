@@ -34,7 +34,7 @@ public class TrainingInstancesController : ApiControllerBase
     [HttpPost]
     public async Task<IActionResult> AddTrainingInstanceAsync([FromBody] CreateTrainingInstanceRequest request)
     {
-        var result = await _trainingInstanceService.AddTrainingInstanceAsync(request);
+        var result = await _trainingInstanceService.CreateTrainingInstanceAsync(request);
         return Json(result);
     }
 

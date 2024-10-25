@@ -1,10 +1,11 @@
-﻿using GymWatch.Infrastructure.Requests;
+﻿using GymWatch.Infrastructure.DTOs;
+using GymWatch.Infrastructure.Requests;
 
 namespace GymWatch.Infrastructure.IServices;
 
 public interface IExerciseService
 {
-    Task<int> AddCustomExercise(CreateCustomExerciseRequest request);
-    Task<int> EditCustomExercise(EditCustomExerciseRequest request);
-    Task DeleteCustomExerciseAsync(int id);
+    Task<ExerciseDto> CreateCustomExerciseAsync(CreateOrUpdateExerciseDto request);
+    Task<ExerciseDto?> UpdateCustomExerciseAsync(CreateOrUpdateExerciseDto request);
+    Task<int?> DeleteCustomExerciseAsync(int id);
 }
