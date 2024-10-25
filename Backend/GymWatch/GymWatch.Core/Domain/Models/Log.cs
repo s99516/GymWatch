@@ -3,7 +3,7 @@ using GymWatch.Core.Domain.Enums;
 
 namespace GymWatch.Core.Domain.Models;
 
-public class Log : IModel<int>
+public class Log : IModel
 {
     public int Id { get; set; }
     public string Message { get; set; }

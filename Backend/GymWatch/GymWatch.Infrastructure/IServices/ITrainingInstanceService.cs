@@ -5,8 +5,8 @@ namespace GymWatch.Infrastructure.IServices;
 
 public interface ITrainingInstanceService
 {
-    Task<TrainingInstanceDto> GetByIdAsync(int id);
+    Task<TrainingInstanceDto?> GetByIdAsync(int id);
     Task<IEnumerable<TrainingInstanceDto>> GetByUserAsync(int userId);
-    Task<int> AddTrainingInstanceAsync(CreateTrainingInstanceRequest request);
-    Task FinishTrainingInstanceAsync(int id);
+    Task<TrainingInstanceDto> CreateTrainingInstanceAsync(CreateTrainingInstanceRequest request);
+    Task<int?> FinishTrainingInstanceAsync(int id);
 }

@@ -1,8 +1,9 @@
 ﻿using System.Data;
 using GymWatch.Core.Domain.Models;
+using GymWatch.Infrastructure.DTOs;
 using GymWatch.Infrastructure.IRepositories;
 using GymWatch.Infrastructure.IServices;
-using GymWatch.Infrastructure.Requests;
+using GymWatch.Infrastructure.Mappers;
 
 namespace GymWatch.Infrastructure.Services;
 
@@ -16,26 +17,37 @@ public class ExerciseService : IExerciseService
         _userRepository = userRepository;
         _exerciseRepository = exerciseRepository;
     }
-    
-    public async Task<int> AddCustomExercise(CreateCustomExerciseRequest request)
+
+    public async Task<ExerciseDto> CreateCustomExerciseAsync(CreateOrUpdateExerciseDto request)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId);
-
-        if (user == null) throw new Exception($"Cannot find user with id {request.UserId} to add custom exercise");
-
-        var exercise = new Exercise(request.Name, request.Description, true, user);
-
-        return await _exerciseRepository.AddAsync(exercise);
+        var exercise = new Exercise(request.Name, request.Description, request.BodyPart, true, user);
+        
+        await _exerciseRepository.AddAsync(exercise);
+        await _userRepository.SaveChangesAsync();
+        
+        return exercise.ToDto();
     }
 
-    public async Task<int> EditCustomExercise(EditCustomExerciseRequest request)
+    public async Task<ExerciseDto?> UpdateCustomExerciseAsync(CreateOrUpdateExerciseDto request)
     {
-        var id = await _exerciseRepository.EditAsync(request);
-        return id;
+        var exercise = await _exerciseRepository.GetByIdAsync(request.Id);
+        
+        exercise?.Update(request.Name, request.Description, request.BodyPart);
+        
+        await _exerciseRepository.SaveChangesAsync();
+        
+        return exercise?.ToDto();
     }
 
-    public async Task DeleteCustomExerciseAsync(int id)
+    public async Task<int?> DeleteCustomExerciseAsync(int id)
     {
-        await _exerciseRepository.DeleteAsync(id);
+        var exercise = await _exerciseRepository.GetByIdAsync(id);
+        
+        exercise?.Delete();
+        
+        await _exerciseRepository.SaveChangesAsync();
+        
+        return exercise?.Id;
     }
 }

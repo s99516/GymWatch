@@ -5,7 +5,7 @@ namespace GymWatch.Infrastructure.Mappers;
 
 public static class TrainingInstanceMapper
 {
-    private readonly static Func<TrainingInstance, TrainingInstanceDto> Map = (trainingInstance) => new TrainingInstanceDto()
+    private static readonly Func<TrainingInstance, TrainingInstanceDto> Map = trainingInstance => new TrainingInstanceDto()
     {
         Id = trainingInstance.Id,
         Name = trainingInstance.Name,

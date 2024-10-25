@@ -12,11 +12,20 @@ import { ComponentProps, useEffect, useMemo } from "react";
 import { useColorScheme } from "@/components/useColorScheme";
 import { CustomThemeProvider } from "./providers/ThemeProvider/CustomThemeProvider";
 import { Appbar, Text } from "react-native-paper";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -48,9 +57,11 @@ export default function RootLayout() {
   }
 
   return (
-    <CustomThemeProvider>
-      <RootLayoutNav />
-    </CustomThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <CustomThemeProvider>
+        <RootLayoutNav />
+      </CustomThemeProvider>
+    </QueryClientProvider>
   );
 }
 
@@ -106,6 +117,10 @@ function RootLayoutNav() {
       <Stack.Screen
         name="(auth)/(tabs)"
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="(auth)/exercise/details"
+        options={{ headerTitle: "Exercise" }}
       />
       <Stack.Screen
         name="settings"

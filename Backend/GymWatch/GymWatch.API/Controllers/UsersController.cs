@@ -25,10 +25,18 @@ public class UsersController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<int> RegisterUserAsync([FromBody] RegisterUserRequest request)
+    public async Task<UserDto> RegisterUserAsync([FromBody] RegisterUserRequest request)
     {
         var response = await _userService.RegisterAsync(request.Email, request.Password);
 
         return response;
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(int id)
+    {
+        var response = await _userService.DeleteAsync(id);
+        
+        return response is not null ? Ok(response) : NotFound();
     }
 }

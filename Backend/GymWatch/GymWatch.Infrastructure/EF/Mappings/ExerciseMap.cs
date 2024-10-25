@@ -11,6 +11,7 @@ public class ExerciseMap : IEntityTypeConfiguration<Exercise>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.UserId).IsRequired(false);
+        builder.Property(x => x.Description).IsRequired(false);
 
         builder.ToTable("Exercises");
     }

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymWatch.API.Controllers;
 
-[Authorize]
 public class ExercisesController : ApiControllerBase
 {
     private readonly IExerciseProvider _exerciseProvider;
@@ -35,22 +34,23 @@ public class ExercisesController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<int> AddCustomExerciseAsync([FromBody] CreateCustomExerciseRequest request)
+    public async Task<IActionResult> CreateCustomExerciseAsync([FromBody] CreateOrUpdateExerciseDto request)
     {
-        var response = await _exerciseService.AddCustomExercise(request);
-        return response;
+        var response = await _exerciseService.CreateCustomExerciseAsync(request);
+        return Ok(response);
     }
     
     [HttpPut]
-    public async Task<int> EditCustomExerciseAsync([FromBody] EditCustomExerciseRequest request)
+    public async Task<IActionResult> UpdateCustomExerciseAsync([FromBody] CreateOrUpdateExerciseDto request)
     {
-        var response = await _exerciseService.EditCustomExercise(request);
-        return response;
+        var response = await _exerciseService.UpdateCustomExerciseAsync(request);
+        return  response is not null ? Ok(response) : NotFound();
     }
-
+    
     [HttpDelete("{id}")]
-    public async Task DeleteCustomExerciseAsync(int id)
+    public async Task<IActionResult> DeleteCustomExerciseAsync(int id)
     {
-        await _exerciseService.DeleteCustomExerciseAsync(id);
+        var response = await _exerciseService.DeleteCustomExerciseAsync(id);
+        return  response is not null ? Ok(response) : NotFound();
     }
 }

@@ -1,9 +1,13 @@
-﻿using GymWatch.Core.Domain.Abstraction;
+﻿using System.Linq.Expressions;
+using GymWatch.Core.Domain.Abstraction;
 
 namespace GymWatch.Infrastructure.IRepositories.Abstraction;
 
-public interface IRepository<TEntity> where TEntity : IModel<int>
+public interface IRepository<TEntity> where TEntity : class, IModel
 {
+    Task AddAsync(TEntity? entity);
     Task<TEntity?> GetByIdAsync(int id);
-    Task<int> AddAsync(TEntity entity);
+    Task<List<TEntity?>> GetAllAsync(bool tracked = true);
+    Task UpdateAsync(TEntity entity);
+    Task SaveChangesAsync();
 }

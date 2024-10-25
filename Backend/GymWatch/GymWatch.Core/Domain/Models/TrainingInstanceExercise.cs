@@ -2,7 +2,7 @@
 
 namespace GymWatch.Core.Domain.Models;
 
-public class TrainingInstanceExercise : IModel<int>
+public class TrainingInstanceExercise : IModel
 {
     public int Id { get; set; }
     public int Sequence { get; set; }

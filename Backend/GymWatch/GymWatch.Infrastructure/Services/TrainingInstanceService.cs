@@ -17,37 +17,41 @@ public class TrainingInstanceService : ITrainingInstanceService
         _trainingInstanceRepository = trainingInstanceRepository;
         _userRepository = userRepository;
     }
-    
+
     public async Task<TrainingInstanceDto?> GetByIdAsync(int id)
     {
         var trainingInstance = await _trainingInstanceRepository.GetByIdAsync(id);
         
-        var result = trainingInstance?.ToDto();
-        return result;
+        return trainingInstance?.ToDto();
     }
 
     public async Task<IEnumerable<TrainingInstanceDto>> GetByUserAsync(int userId)
     {
         var trainingInstances = await _trainingInstanceRepository.GetByUserAsync(userId);
-        
-        var result = trainingInstances.ToDtoList();
-        return result;
+
+        return trainingInstances.ToDtoList();
     }
 
-    public async Task<int> AddTrainingInstanceAsync(CreateTrainingInstanceRequest request)
+    public async Task<TrainingInstanceDto> CreateTrainingInstanceAsync(CreateTrainingInstanceRequest request)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId);
-
-        if (user == null)
-            throw new Exception($"Cannot find user with id: {request.UserId} to create training instance");
         
         var trainingInstance = new TrainingInstance(request.Name, request.BodyWeight, request.State, user);
-        var id = await _trainingInstanceRepository.AddAsync(trainingInstance);
-        return id;
+
+        await _trainingInstanceRepository.AddAsync(trainingInstance);
+        await _trainingInstanceRepository.SaveChangesAsync();
+        
+        return trainingInstance.ToDto();
     }
 
-    public async Task FinishTrainingInstanceAsync(int id)
+    public async Task<int?> FinishTrainingInstanceAsync(int id)
     {
-        await _trainingInstanceRepository.FinishTrainingInstanceAsync(id);
+        var trainingInstance = await _trainingInstanceRepository.GetByIdAsync(id);
+        
+        trainingInstance?.Finish();
+        
+        await _trainingInstanceRepository.SaveChangesAsync();
+        
+        return trainingInstance?.Id;
     }
 }

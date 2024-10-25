@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWatch.Core", "GymWatch.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWatch.Infrastructure", "GymWatch.Infrastructure\GymWatch.Infrastructure.csproj", "{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_Common", "_Common\_Common.csproj", "{F7D519A3-0CFD-4EB2-A9DF-38E26736EC89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DC0EA9E-8E64-4E36-99DC-18FFE4C004A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D519A3-0CFD-4EB2-A9DF-38E26736EC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D519A3-0CFD-4EB2-A9DF-38E26736EC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D519A3-0CFD-4EB2-A9DF-38E26736EC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D519A3-0CFD-4EB2-A9DF-38E26736EC89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

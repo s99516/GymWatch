@@ -1,10 +1,13 @@
-﻿namespace GymWatch.Infrastructure.DTOs;
+﻿using GymWatch.Core.Domain.Enums;
+
+namespace GymWatch.Infrastructure.DTOs;
 
 public class ExerciseDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
+    public BodyPart BodyPart { get; set; }
     public DateTime DateCreated { get; set; }
     public bool IsCustom { get; set; }
     public int? UserId { get; set; }

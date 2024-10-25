@@ -1,10 +1,11 @@
 ﻿using GymWatch.Core.Domain.Enums;
 using GymWatch.Core.Domain.Models;
+using GymWatch.Infrastructure.EF;
 using GymWatch.Infrastructure.IRepositories;
 
 namespace GymWatch.Infrastructure.Repositories.InMemoryRepositories;
 
-public class InMemoryTrainingInstanceRepository : ITrainingInstanceRepository
+public class InMemoryTrainingInstanceRepository : Repository<TrainingInstance>, ITrainingInstanceRepository
 {
     private List<TrainingInstance> TrainingInstances = new()
     {
@@ -29,26 +30,30 @@ public class InMemoryTrainingInstanceRepository : ITrainingInstanceRepository
             UserId = 2
         },
     };
-    
+
+    public InMemoryTrainingInstanceRepository(GymWatchDbContext context) : base(context)
+    {
+    }
+
     public async Task<TrainingInstance?> GetByIdAsync(int id)
     {
         var trainingInstance = await Task.FromResult(TrainingInstances.Where(x => x.Id == id).FirstOrDefault());
         return trainingInstance;
     }
 
-    public async Task<IEnumerable<TrainingInstance>> GetByUserAsync(int userId)
-    {
-        var trainingInstance = await Task.FromResult(TrainingInstances.Where(x => x.UserId == userId).ToList());
-        return trainingInstance;
-    }
-
-    public async Task<int> AddAsync(TrainingInstance trainingInstance)
+    public async Task<TrainingInstance> CreateAsync(TrainingInstance trainingInstance)
     {
         var lastId = TrainingInstances.LastOrDefault()?.Id;
         trainingInstance.Id = (lastId ?? 0) + 1;
         TrainingInstances.Add(trainingInstance);
         
-        return await Task.FromResult(trainingInstance.Id);
+        return await Task.FromResult(trainingInstance);
+    }
+
+    public async Task<IEnumerable<TrainingInstance>> GetByUserAsync(int userId)
+    {
+        var trainingInstance = await Task.FromResult(TrainingInstances.Where(x => x.UserId == userId).ToList());
+        return trainingInstance;
     }
 
     public async Task FinishTrainingInstanceAsync(int id)

@@ -1,15 +1,16 @@
 ﻿using GymWatch.Core.Domain.Models;
 using GymWatch.Infrastructure.EF;
 using GymWatch.Infrastructure.IRepositories;
+using GymWatch.Infrastructure.IRepositories.Abstraction;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymWatch.Infrastructure.Repositories.SQLRepositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository : Repository<User>, IUserRepository
 {
     private readonly GymWatchDbContext _context;
 
-    public UserRepository(GymWatchDbContext context)
+    public UserRepository(GymWatchDbContext context) : base(context)
     {
         _context = context;
     }
@@ -19,12 +20,12 @@ public class UserRepository : IUserRepository
         return result;
     }
 
-    public async Task<int> AddAsync(User entity)
+    public async Task<User> CreateAsync(User entity)
     {
-        await _context.Users.AddAsync(entity);
+        var entry = await _context.Users.AddAsync(entity);
         await _context.SaveChangesAsync();
 
-        return entity.Id;
+        return entry.Entity;
     }
 
     public async Task<User?> GetByEmailAsync(string email)

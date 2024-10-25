@@ -3,7 +3,7 @@ using GymWatch.Core.Domain.Enums;
 
 namespace GymWatch.Core.Domain.Models;
 
-public class TrainingInstance : IModel<int>
+public class TrainingInstance : IModel, ISoftDeletable
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -12,6 +12,7 @@ public class TrainingInstance : IModel<int>
     public TrainingState State { get; set; }
     public int UserId { get; set; }
     public User User { get; set; }
+    public bool IsDeleted { get; set; }
     public ICollection<TrainingInstanceExercise> TrainingInstanceExercises { get; set; }
 
     protected TrainingInstance() { }
@@ -45,5 +46,15 @@ public class TrainingInstance : IModel<int>
     {
         if (bodyWeight <= 0) throw new ArgumentException("Wrong body weight provided");
         BodyWeight = bodyWeight;
+    }
+    
+    public void Delete()
+    {
+        IsDeleted = true;
+    }
+    
+    public void Finish()
+    {
+        State = TrainingState.Ended;
     }
 }
