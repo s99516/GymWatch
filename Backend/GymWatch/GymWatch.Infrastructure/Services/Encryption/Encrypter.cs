@@ -33,6 +33,15 @@ public class Encrypter : IEncrypter
 
     }
 
+    public (string, string) GetHashAndSalt(string value)
+    {
+        var salt = GetSalt(value);
+        var hash = GetHash(value, salt);
+        
+        return (hash, salt);
+    }
+
+
     private static byte[] GetBytes(string value)
     {
         var bytes = new byte[value.Length * sizeof(char)];

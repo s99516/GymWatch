@@ -41,4 +41,10 @@ public class User : IModel, ISoftDeletable
     {
         IsDeleted = true;
     }
+
+    public void Update(string email, string password)
+    {
+        SetEmail(email);
+        SetPassword(password);
+    }
 }

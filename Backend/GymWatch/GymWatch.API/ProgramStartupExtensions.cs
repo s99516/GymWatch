@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using FluentValidation;
+using GymWatch.Infrastructure;
 using GymWatch.Infrastructure.EF;
 using GymWatch.Infrastructure.Handlers;
 using GymWatch.Infrastructure.Handlers.Abstraction;
@@ -89,5 +91,10 @@ public static class ProgramStartupExtensions
             Console.WriteLine(e);
             throw;
         }
+    }
+
+    public static void RegisterValidators(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssemblyContaining<IInfrastructureAssemblyMarker>(ServiceLifetime.Singleton);
     }
 }
