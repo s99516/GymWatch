@@ -1,13 +1,14 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
 import { SegmentedButtons } from "react-native-paper";
 import { useAppThemeSetting } from "./providers/ThemeProvider/CustomThemeProvider";
+import { Button } from "react-native-paper";
 
 const SettingsScreen = () => {
   const { themeSetting, setThemeSetting } = useAppThemeSetting();
   return (
     <ScrollView style={styles.container}>
       <SegmentedButtons
+        style={styles.segmentedButtons}
         value={themeSetting}
         onValueChange={(e) => {
           if (e === "auto" || e === "dark" || e === "light") setThemeSetting(e);
@@ -30,6 +31,14 @@ const SettingsScreen = () => {
           },
         ]}
       />
+      <Button
+        mode="contained"
+        onPress={() =>
+          console.log("Navigating to settings page to be implemented")
+        }
+      >
+        Edit account
+      </Button>
     </ScrollView>
   );
 };
@@ -38,7 +47,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    gap: 5,
+  },
+  segmentedButtons: {
+    marginBottom: 5,
   },
 });
 
