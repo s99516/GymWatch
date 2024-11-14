@@ -17,6 +17,7 @@ builder.Services.RegisterHandlers();
 builder.Services.RegisterSettings(builder.Configuration);
 builder.Services.RegisterJwtServices(builder.Configuration);
 builder.Services.RegisterMemoryCache();
+builder.Services.RegisterValidators();
 
 builder.Services.AddCors(options =>
 {

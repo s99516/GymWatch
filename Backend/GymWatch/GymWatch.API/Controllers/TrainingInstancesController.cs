@@ -19,7 +19,7 @@ public class TrainingInstancesController : ApiControllerBase
     public async Task<IActionResult> GetAsync(int id)
     {
         var result = await _trainingInstanceService.GetByIdAsync(id);
-        if (result == null) return NotFound();
+        if (result is null) return NotFound();
         return Json(result);
     }
 
